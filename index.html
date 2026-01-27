@@ -1,23 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>S3 File Upload</title>
+  <title>Cloud Storage App</title>
 </head>
 <body>
-  <h2>Upload File to Amazon S3</h2>
+  <h2>Upload File</h2>
+  <input type="file" id="fileInput" />
+  <button onclick="uploadFile()">Upload</button>
 
-  <form action="https://cloud-storage-app-rashmi-bucket.s3.amazonaws.com/"
-        method="post"
-        enctype="multipart/form-data">
-     <input type="hidden" name="key" value="${filename}">
-  <input type="hidden" name="acl" value="public-read">
-  <input type="hidden" name="success_action_status" value="201">
-  <input type="hidden" name="Content-Type" value="">
+  <h2>Files in S3</h2>
+  <button onclick="loadFiles()">Show Files</button>
+  <ul id="fileList"></ul>
 
-    <br><br>
-    <input type="submit" value="Upload File">
-  </form>
+  <script>
+    const API_URL = "https://YOUR_API_URL/prod/files";
 
-  <p>Files will be uploaded directly to Amazon S3.</p>
+    async function uploadFile() {
+      const file = document.getElementById("fileInput").files[0];
+      const fileName = file.name;
+
+      const res = await fetch(API_URL + "?action=upload&name=" + fileName);
+      const data = await res.json();
+
+      await fetch(data.url, {
+        method: "PUT",
+        body: file
+      });
+
+      alert("Uploaded successfully!");
+      loadFiles();
+    }
+
+    async function loadFiles() {
+      const res = await fetch(API_URL + "?action=list");
+      const data = await res.json();
+
+      const list = document.getElementById("fileList");
+      list.innerHTML = "";
+
+      data.files.forEach(file => {
+        const li = document.createElement("li");
+        li.textContent = file;
+
+        const downloadBtn = document.createElement("button");
+        downloadBtn.textContent = "Download";
+        downloadBtn.onclick = () => downloadFile(file);
+
+        li.appendChild(downloadBtn);
+        list.appendChild(li);
+      });
+    }
+
+    async function downloadFile(fileName) {
+      const res = await fetch(API_URL + "?action=download&name=" + fileName);
+      const data = await res.json();
+
+      window.location.href = data.url;
+    }
+  </script>
 </body>
 </html>
+
