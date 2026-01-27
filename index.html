@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cloud File Storage</title>
+</head>
+<body>
+
+  <h2>Upload File to AWS S3</h2>
+
+  <form 
+    action="https://cloud-storage-app-rashmi-bucket.s3.amazonaws.com/" 
+    method="post" 
+    enctype="multipart/form-data">
+
+    <input type="file" name="file" required />
+    <br><br>
+    <input type="submit" value="Upload" />
+
+  </form>
+
+</body>
+</html>
