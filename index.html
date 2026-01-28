@@ -5,8 +5,8 @@
 </head>
 <body>
   <h2>Upload File</h2>
-  <input type="file" id="fileInput" />
-  <button onclick="uploadFile()">Upload</button>
+  Choose File : <input type="file" id="fileInput" /><br>
+  <button onclick="uploadFile()">Upload</button><br><br>
 
   <h2>Files in S3</h2>
   <button onclick="loadFiles()">Show Files</button>
@@ -20,6 +20,7 @@
       const fileName = file.name;
 
       const res = await fetch(API_URL + "?action=upload&name=" + fileName);
+      alert(fileName);
       const data = await res.json();
 
       await fetch(data.url, {
@@ -28,7 +29,7 @@
       });
 
       alert("Uploaded successfully!");
-      loadFiles();
+   //   loadFiles();
     }
 
     async function loadFiles() {
