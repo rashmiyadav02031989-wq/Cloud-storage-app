@@ -16,10 +16,10 @@
     const API_URL = "https://x2u8mw3asf.execute-api.us-east-1.amazonaws.com/prod/files";
 
     async function uploadFile() {
-      alert("upload function");
+      
       const file = document.getElementById("fileInput").files[0];
       const fileName = file.name;
-
+alert("upload function. "+fileName);
       const res = await fetch(API_URL + "?action=upload&name=" + fileName);
       alert(fileName);
       const data = await res.json();
