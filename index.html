@@ -21,6 +21,11 @@
       const fileName = file.name;
 alert("upload function. "+fileName+ "url="+ API_URL + "?action=upload&name=" + fileName);
       const res = await fetch(API_URL + "?action=upload&name=" + fileName);
+      if(!res.ok)
+      {
+        const errmsg = await res.text();
+        alert("error="+errmsg);
+      }
       alert(fileName);
       const data = await res.json();
 
