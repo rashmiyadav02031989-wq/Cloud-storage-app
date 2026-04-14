@@ -62,7 +62,7 @@ alert("upload function. "+fileName+ "url="+ API_URL + "/upload?key=" + fileName)
     }
 
     async function downloadFile(fileName) {
-      const res = await fetch(API_URL + "/download?key=" + fileName);
+      const res = await fetch(API_URL + "/upload?key=" + fileName);
       const data = await res.json();
 
       window.location.href = data.url;
