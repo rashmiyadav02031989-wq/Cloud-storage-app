@@ -5,7 +5,7 @@
 </head>
 <body>
   <h2>Upload File</h2>
- <input type="file" id="fileInput" /><br><br><br>
+ <input type="file" id="fileInput" /><br><br>
 <br><br>&nbsp;&nbsp;&nbsp;  <button onclick="uploadFile()">Upload</button><br><br>
 
   <h2>Files in S3</h2>
@@ -16,7 +16,7 @@
     const API_URL = "https://8bj71kza2b.execute-api.us-east-1.amazonaws.com/";
 
     async function uploadFile() {
-      
+      alert("upload button click");
       const file = document.getElementById("fileInput").files[0];
       const fileName = file.name;
 alert("upload function. "+fileName+ "url="+ API_URL + "/upload?key=" + fileName);
