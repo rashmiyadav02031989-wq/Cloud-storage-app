@@ -31,6 +31,9 @@ alert("upload function. "+fileName+ "url="+ API_URL + "/upload?key=" + fileName)
 
       await fetch(data.url, {
         method: "PUT",
+        headers: {
+    "Content-Type": file.type
+  },
         body: file
       });
 
