@@ -19,8 +19,8 @@
       
       const file = document.getElementById("fileInput").files[0];
       const fileName = file.name;
-alert("upload function. "+fileName+ "url="+ API_URL + "/upload?name=" + fileName);
-      const res = await fetch(API_URL + "/upload?name=" + fileName);
+alert("upload function. "+fileName+ "url="+ API_URL + "/upload?key=" + fileName);
+      const res = await fetch(API_URL + "/upload?key=" + fileName);
       if(!res.ok)
       {
         const errmsg = await res.text();
@@ -59,7 +59,7 @@ alert("upload function. "+fileName+ "url="+ API_URL + "/upload?name=" + fileName
     }
 
     async function downloadFile(fileName) {
-      const res = await fetch(API_URL + "/download?name=" + fileName);
+      const res = await fetch(API_URL + "/download?key=" + fileName);
       const data = await res.json();
 
       window.location.href = data.url;
