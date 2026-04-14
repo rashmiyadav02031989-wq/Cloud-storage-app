@@ -24,19 +24,22 @@ alert("upload function. "+fileName+ "url="+ API_URL + "/upload?key=" + fileName)
       if(!res.ok)
       {
         const errmsg = await res.text();
-        alert("error="+errmsg);
+        alert("**error**="+errmsg);
       }
       alert(fileName);
       const data = await res.json();
 
-      await fetch(data.url, {
+      const res=await fetch(data.url, {
         method: "PUT",
         headers: {
-    "Content-Type": file.type
+    "Content-Type": file.type || "application/octet-stream"
   },
         body: file
       });
-
+      if(!res.ok)
+      {
+        alert("upload failed");
+      }
       alert("Uploaded successfully!");
    //   loadFiles();
     }
