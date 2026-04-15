@@ -51,7 +51,7 @@
         }
 
       } catch (err) {
-        status.textContent = "❌ Error: " + err.message + err.status;
+        status.textContent = "❌ Error: " + err.message + uploadRes.status;
         status.className = "status error";
       }
     }
