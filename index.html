@@ -13,11 +13,16 @@
   <ul id="fileList"></ul>
 
   <script>
+    alert("Java script loaded");
     const API_URL = "https://8bj71kza2b.execute-api.us-east-1.amazonaws.com/";
 
     async function uploadFile() {
       alert("upload button click");
       const file = document.getElementById("fileInput").files[0];
+      if (!file) {
+  alert("Please select a file");
+  return;
+}
       const fileName = file.name;
 alert("upload function. "+fileName+ "url="+ API_URL + "/upload?key=" + fileName);
       const res = await fetch(API_URL + "/upload?key=" + fileName);
