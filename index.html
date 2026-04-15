@@ -18,35 +18,42 @@
 
     async function uploadFile() {
       alert("upload button click");
-      const file = document.getElementById("fileInput").files[0];
-      if (!file) {
-  alert("Please select a file");
-  return;
-}
-      const fileName = file.name;
-alert("upload function. "+fileName+ "url="+ API_URL + "/upload?key=" + fileName);
-      const res = await fetch(API_URL + "/upload?key=" + fileName);
-      if(!res.ok)
-      {
-        const errmsg = await res.text();
-        alert("**error**="+errmsg);
-      }
-      alert(fileName);
-      const data = await res.json();
+     const status = document.getElementById("status");
+      const fileInput = document.getElementById("fileInput");
+      const file = fileInput.files[0];
 
-      const uploadres=await fetch(data.url, {
-        method: "PUT",
-        headers: {
-    "Content-Type": file.type || "application/octet-stream"
-  },
-        body: file
-      });
-      if(!uploadres.ok)
-      {
-        alert("upload failed " + uploadres.status);
+      if (!file) {
+        alert("File is not selected");
+        return;
       }
-      alert("Uploaded successfully!");
-   //   loadFiles();
+
+      
+
+      try {
+        const res = await fetch(
+          "https://8bj71kza2b.execute-api.us-east-1.amazonaws.com/?filename=" +
+          encodeURIComponent(file.name)
+        );
+
+        const data = await res.json();
+
+        
+
+        const uploadRes = await fetch(data.uploadUrl, {
+          method: "PUT",
+          body: file
+        });
+
+        if (uploadRes.status === 200) {
+          alert("File Uploaded Successfully");
+        } else {
+          alert("Upload Failed");
+        }
+
+      } catch (err) {
+        status.textContent = "❌ Error: " + err.message;
+        status.className = "status error";
+      }
     }
 
     async function loadFiles() {
