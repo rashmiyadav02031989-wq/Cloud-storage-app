@@ -37,7 +37,7 @@
 
         const data = await res.json();
 
-        
+        alert("upload url="+data.uploadUrl);
 
         const uploadRes = await fetch(data.uploadUrl, {
           method: "PUT",
