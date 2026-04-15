@@ -43,7 +43,7 @@ alert("upload function. "+fileName+ "url="+ API_URL + "/upload?key=" + fileName)
       });
       if(!uploadres.ok)
       {
-        alert("upload failed");
+        alert("upload failed " + uploadres.status);
       }
       alert("Uploaded successfully!");
    //   loadFiles();
